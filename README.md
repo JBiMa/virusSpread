@@ -1,4 +1,4 @@
-````markdown
+
 # Virus Spread Simulator
 
 **Overview**
@@ -22,7 +22,7 @@ Virus Spread Simulator is a Java-based application designed to simulate the spre
    git clone https://github.com/username/virus-spread-simulator.git
    cd virus-spread-simulator
    ```
-````
+
 
 2. **Build the Application:**
 
