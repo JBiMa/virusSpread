@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ChoiceBox?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jbima.virusspreadsimulator.VirusController">
+    <top>
+        <VBox spacing="10" style="-fx-background-color: #f0f0f0;">
+            <HBox spacing="10">
+                <Button text="Start" fx:id="startButton" onAction="#handleStart"/>
+                <Button text="Stop" fx:id="stopButton" onAction="#handleStop"/>
+                <Button text="Reset" fx:id="resetButton" onAction="#handleReset"/>
+                <Label text="Statistics:"/>
+                <Slider fx:id="immunitySlider" min="0" max="100" value="0"/>
+                <Label fx:id="immunityPercentageLabel" text="0%"/>
+                <Button text="Save" fx:id="saveButton" onAction="#handleSave"/>
+                <ChoiceBox fx:id="snapshotBox" />
+                <Button text="Load" fx:id="loadButton" onAction="#handleLoad"/>
+            </HBox>
+            <!-- Additional controls or information can be added here -->
+        </VBox>
+    </top>
+    <center>
+        <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="840" prefWidth="1200" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #000000; -fx-border-color: orange; -fx-border-width: 1px;">
+        </Pane>
+    </center>
+</BorderPane>
