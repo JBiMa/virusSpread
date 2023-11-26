@@ -19,11 +19,18 @@ public class ImmuneState implements IState {
     }
 
     @Override
+    public void printInformation() {
+        System.out.println("ImmuneState");
+    }
+
+    @Override
+    public IState deepCopy() {
+        return new ImmuneState();
+    }
+
+    @Override
     public Color getColor() {
         return Color.WHITE;
     }
-    @Override
-    public IState clone() {
-        return new ImmuneState();
-    }
+
 }

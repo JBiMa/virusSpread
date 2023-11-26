@@ -19,20 +19,19 @@ public class Move {
     private static final double MAX_CHANGE_INTERVAL = 2.0;
     private IVector2D speed;
     private Timeline directionChangeTimeline;
-    private double directionAngle;
+
     public Move() {
         initializeRandomDirectionChange();
-        this.speed = initializeSpeed();
+        initializeSpeed();
     }
     public Move(IVector2D speed) {
         this.speed = speed;
     }
-    private IVector2D initializeSpeed() {
+    private void initializeSpeed() {
         Random random = new Random();
         double angle = random.nextDouble() * 2 * Math.PI;
-        this.directionAngle = angle;
         double speedMagnitude = random.nextDouble() * MAX_SPEED;
-        return new Vector2D(speedMagnitude * Math.cos(angle), speedMagnitude * Math.sin(angle));
+        this.speed = new Vector2D(speedMagnitude * Math.cos(angle), speedMagnitude * Math.sin(angle));
     }
 
     public IVector2D getSpeed() {
@@ -57,19 +56,19 @@ public class Move {
         return random.nextDouble() * MAX_CHANGE_INTERVAL;
     }
 
-    public void leaveBoundary(Position position, Person person) {
+    public void leaveBoundary(Position position) {
         position.setX(99999);
         position.setY(99999);
         setSpeed(new Vector2D(0,0));
     }
 
-    public void checkBoundaryCollision(Position position,Person person){
+    public void checkBoundaryCollision(Position position){
         boolean shouldReverse = Math.random() < 0.5;
         if (position.getX() - Person.PERSON_RADIUS <= 0 || position.getX() + Person.PERSON_RADIUS >= SCENE_WIDTH) {
             if (shouldReverse) {
                 speed.setX(-speed.getX());
             } else {
-                leaveBoundary(position,person);
+                leaveBoundary(position);
             }
         }
 
@@ -77,20 +76,8 @@ public class Move {
             if (shouldReverse) {
                 speed.setY(-speed.getY());
             } else {
-                leaveBoundary(position,person);
+                leaveBoundary(position);
             }
         }
-    }
-    public double getDirectionAngle() {
-        return directionAngle;
-    }
-
-    public void setDirectionAngle(double directionAngle) {
-        this.directionAngle = directionAngle;
-    }
-    public Move copy() {
-        Move moveCopy = new Move(speed.copy());
-        moveCopy.setDirectionAngle(this.directionAngle);
-        return moveCopy;
     }
 }

@@ -11,7 +11,11 @@ public class SimulationCareTaker {
     }
 
     public SimulationMemento getMemento(int index) {
-        return mementoList.get(index);
+        if (index >= 0 && index < mementoList.size()) {
+            return mementoList.get(index);
+        } else {
+            throw new IndexOutOfBoundsException("Invalid memento index");
+        }
     }
 
     public int getMementoCount() {

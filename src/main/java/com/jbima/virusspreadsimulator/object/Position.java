@@ -5,7 +5,7 @@ import com.jbima.virusspreadsimulator.Vector2d.Vector2D;
 
 public class Position{
 
-    private Vector2D vector;
+    private final Vector2D vector;
 
     public Position(double x, double y) {
         this.vector = new Vector2D(x, y);

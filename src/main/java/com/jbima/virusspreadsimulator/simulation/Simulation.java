@@ -22,14 +22,13 @@ public class Simulation {
 
     private static final double PERSON_RADIUS = 5.0;
     private static final double TIME_STEP = 1.0 / FPS; // 25 steps per second
-    private static final double INFECTION_RADIUS = 25.0;
     private final Pane mainPane;
     private ArrayList<Person> people;
     private double currentTime;
-    private double initialImmunity;
+    private final double initialImmunity;
     private IState state;
 
-    public Simulation(Pane mainPane, double initialImmunity) {
+        public Simulation(Pane mainPane, double initialImmunity) {
         this.initialImmunity = initialImmunity;
         System.out.println(initialImmunity);
         this.currentTime = 0.0;
@@ -49,6 +48,7 @@ public class Simulation {
             addPerson(mainPane,state);
         }
     }
+
     public void initializeTimeline() {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(1000 / FPS), event -> updateSimulation())
@@ -109,20 +109,17 @@ public class Simulation {
     public void setPersonArrayList(ArrayList<Person> population){
         this.people = population;
     }
-    public void setPeople(ArrayList<Person> people) {
-        this.people = people;
-    }
 
     public void setTime(double time) {
         this.currentTime = time;
     }
     public void printPersonPositions() {
         for (Person person : getPersonArrayList()) {
-//            System.out.println("Person position: " + person.getPosition().getX() + ", " + person.getPosition().getY()+" person speed: "+person.getMove().getSpeed().getComponents().get(0)+", "+person.getMove().getSpeed().getComponents().get(1));
+            System.out.println("Person position: " + person.getPosition().getX() + ", " + person.getPosition().getY()+" person speed: "+person.getMove().getSpeed().getComponents().get(0)+", "+person.getMove().getSpeed().getComponents().get(1));
+            person.getState().printInformation();
         }
     }
     public SimulationMemento createMemento() {
-        printPersonPositions();
         return new SimulationMemento(getPersonArrayList(), getCurrentTime());
     }
     public void restoreFromMemento(SimulationMemento memento) {
@@ -133,13 +130,12 @@ public class Simulation {
         setTime(memento.getCurrentTime());
         this.people = new ArrayList<>();
         this.currentTime = memento.getCurrentTime();
-        for (Person savedPerson : memento.getPeople()) {
-            Person restoredPerson = new Person(savedPerson.getState(), savedPerson.getPosition().getVector());
+        for (Person savedPerson : restoredPeople) {
+            Person restoredPerson = new Person(savedPerson.getState().deepCopy(), savedPerson.getPosition().getVector());
             this.people.add(restoredPerson);
             this.mainPane.getChildren().add(restoredPerson.getCircle());
         }
-        printPersonPositions();
-
+        System.out.println("Simulation restored!");
     }
 
 }
